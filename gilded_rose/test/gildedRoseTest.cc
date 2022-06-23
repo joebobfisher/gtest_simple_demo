@@ -215,3 +215,27 @@ TEST_P(GildedRoseTest, TestUpdateQuality_ItemName_SellIn_Quality){
     EXPECT_EQ(items[0].sellIn,  expected.sellIn);
     EXPECT_EQ(items[0].quality, expected.quality);
 }
+
+TEST(gilded_rose_test, noItems_yields_noItems) {
+    vector<Item> items;
+    GildedRose app(items);
+    app.updateQuality();
+
+    EXPECT_EQ(items.size(), 0);
+}
+
+TEST(gilded_rose_test, twoItems_yields_twoItems) {
+    vector<Item> items;
+    items.push_back(Item("Aged Brie", 0, 47));
+    items.push_back(Item("Foo", 0, 3));
+    GildedRose app(items);
+    app.updateQuality();
+
+    EXPECT_EQ(items.size(), 2);
+    EXPECT_EQ(items[0].name,    "Aged Brie");
+    EXPECT_EQ(items[0].sellIn,  -1);
+    EXPECT_EQ(items[0].quality, 49);
+    EXPECT_EQ(items[1].name,    "Foo");
+    EXPECT_EQ(items[1].sellIn,  -1);
+    EXPECT_EQ(items[1].quality, 1);
+}
