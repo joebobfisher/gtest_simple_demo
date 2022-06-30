@@ -20,5 +20,13 @@ public:
     GildedRose(vector<Item> & items);
     
     void updateQuality();
+
+    void incrementQuality(int i);
+
+    void decrementQuality(int i);
+
+    void handleAgedBrie(int i);
+
+    void handleBackstagePasses(int i);
 };
 

@@ -7,74 +7,59 @@ void GildedRose::updateQuality()
 {
     for (int i = 0; i < items.size(); i++)
     {
-        if (items[i].name != "Aged Brie" && items[i].name != "Backstage passes to a TAFKAL80ETC concert")
-        {
-            if (items[i].quality > 0)
-            {
-                if (items[i].name != "Sulfuras, Hand of Ragnaros")
-                {
-                    items[i].quality = items[i].quality - 1;
-                }
+        if (items[i].name == "Aged Brie") {
+            handleAgedBrie(i);
+        } else if (items[i].name == "Backstage passes to a TAFKAL80ETC concert") {
+            handleBackstagePasses(i);
+        } else if (items[i].name == "Sulfuras, Hand of Ragnaros") {
+        } else {
+            decrementQuality(i);
+            items[i].sellIn--;
+            if (items[i].sellIn < 0) {
+                decrementQuality(i);
             }
         }
-        else
-        {
-            if (items[i].quality < 50)
-            {
-                items[i].quality = items[i].quality + 1;
+    }
+}
 
-                if (items[i].name == "Backstage passes to a TAFKAL80ETC concert")
-                {
-                    if (items[i].sellIn < 11)
-                    {
-                        if (items[i].quality < 50)
-                        {
-                            items[i].quality = items[i].quality + 1;
-                        }
-                    }
+void GildedRose::handleAgedBrie(int i) {
+    incrementQuality(i);
 
-                    if (items[i].sellIn < 6)
-                    {
-                        if (items[i].quality < 50)
-                        {
-                            items[i].quality = items[i].quality + 1;
-                        }
-                    }
-                }
-            }
-        }
+    items[i].sellIn--;
+    if (items[i].sellIn < 0) {
+        incrementQuality(i);
+    }
+}
 
-        if (items[i].name != "Sulfuras, Hand of Ragnaros")
-        {
-            items[i].sellIn = items[i].sellIn - 1;
-        }
+void GildedRose::handleBackstagePasses(int i) {
+    incrementQuality(i);
 
-        if (items[i].sellIn < 0)
-        {
-            if (items[i].name != "Aged Brie")
-            {
-                if (items[i].name != "Backstage passes to a TAFKAL80ETC concert")
-                {
-                    if (items[i].quality > 0)
-                    {
-                        if (items[i].name != "Sulfuras, Hand of Ragnaros")
-                        {
-                            items[i].quality = items[i].quality - 1;
-                        }
-                    }
-                }
-                else
-                {
-                    items[i].quality = items[i].quality - items[i].quality;
-                }
-            }
-            else
-            {
-                if (items[i].quality < 50)
-                {
-                    items[i].quality = items[i].quality + 1;
-                }
-            }
-        }
+    if (items[i].sellIn < 11)
+    {
+        incrementQuality(i);
+    }
+
+    if (items[i].sellIn < 6)
+    {
+        incrementQuality(i);
+    }
+
+    items[i].sellIn--;
+    if (items[i].sellIn < 0) {
+        items[i].quality = 0;
+    }
+}
+
+void GildedRose::decrementQuality(int i) {
+    if (items[i].quality > 0)
+    {
+        items[i].quality--;
+    }
+}
+
+void GildedRose::incrementQuality(int i) {
+    if (items[i].quality < 50)
+    {
+        items[i].quality++;
     }
 }
