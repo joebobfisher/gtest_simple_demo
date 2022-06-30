@@ -17,16 +17,13 @@ class GildedRose
 {
 public:
     vector<Item> & items;
+
     GildedRose(vector<Item> & items);
-    
     void updateQuality();
-
     void incrementQuality(int i);
-
     void decrementQuality(int i);
-
     void handleAgedBrie(int i);
-
     void handleBackstagePasses(int i);
+    void handleOthers(int i);
 };
 
