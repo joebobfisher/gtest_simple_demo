@@ -3,47 +3,15 @@
 GildedRose::GildedRose(vector<Item> & items) : items(items) {}
     
 void GildedRose::updateQuality() {
-    for (int i = 0; i < items.size(); i++) {
-        if (items[i].name == "Aged Brie") {
-            handleAgedBrie(i);
-        } else if (items[i].name == "Backstage passes to a TAFKAL80ETC concert") {
-            handleBackstagePasses(i);
-        } else if (items[i].name != "Sulfuras, Hand of Ragnaros") {
-            items[i].updateQuality();
+    for (auto & item : items) {
+        // TODO This would be great to push down to Item subclasses, but we need to change the tests first!
+        // Then we could just call item.updateQuality() for each item...
+        if (item.name == "Aged Brie") {
+            item.agedBrieUpdateQuality();
+        } else if (item.name == "Backstage passes to a TAFKAL80ETC concert") {
+            item.backstagePassesUpdateQuality();
+        } else if (item.name != "Sulfuras, Hand of Ragnaros") {
+            item.updateQuality();
         }
-    }
-}
-
-void GildedRose::handleAgedBrie(int i) {
-    incrementQuality(i);
-
-    items[i].sellIn--;
-    if (items[i].sellIn < 0) {
-        incrementQuality(i);
-    }
-}
-
-void GildedRose::handleBackstagePasses(int i) {
-    incrementQuality(i);
-
-    if (items[i].sellIn < 11)
-    {
-        incrementQuality(i);
-    }
-
-    if (items[i].sellIn < 6)
-    {
-        incrementQuality(i);
-    }
-
-    items[i].sellIn--;
-    if (items[i].sellIn < 0) {
-        items[i].quality = 0;
-    }
-}
-
-void GildedRose::incrementQuality(int i) {
-    if (items[i].quality < 50) {
-        items[i].quality++;
     }
 }
