@@ -1,4 +1,5 @@
 #include <string>
+#include <utility>
 #include <vector>
 
 using namespace std;
@@ -9,8 +10,8 @@ public:
     string name;
     int sellIn;
     int quality;
-    Item(string name, int sellIn, int quality) : name(name), sellIn(sellIn), quality(quality) 
-    {}
+
+    Item(string name, int sellIn, int quality) : name(std::move(name)), sellIn(sellIn), quality(quality) {}
 };
 
 class GildedRose
@@ -18,7 +19,7 @@ class GildedRose
 public:
     vector<Item> & items;
 
-    GildedRose(vector<Item> & items);
+    explicit GildedRose(vector<Item> & items);
     void updateQuality();
     void incrementQuality(int i);
     void decrementQuality(int i);
