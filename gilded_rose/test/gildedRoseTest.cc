@@ -1,7 +1,7 @@
 #include <vector>
 #include <iterator>
 #include <gtest/gtest.h>
-#include "../src/GildedRose.h"
+#include "../src/GildedRose/GildedRose.h"
 
 
 // todo

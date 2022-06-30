@@ -9,7 +9,7 @@ void GildedRose::updateQuality() {
         } else if (items[i].name == "Backstage passes to a TAFKAL80ETC concert") {
             handleBackstagePasses(i);
         } else if (items[i].name != "Sulfuras, Hand of Ragnaros") {
-            handleOthers(i);
+            items[i].updateQuality();
         }
     }
 }
@@ -39,21 +39,6 @@ void GildedRose::handleBackstagePasses(int i) {
     items[i].sellIn--;
     if (items[i].sellIn < 0) {
         items[i].quality = 0;
-    }
-}
-
-void GildedRose::handleOthers(int i) {
-    decrementQuality(i);
-
-    items[i].sellIn--;
-    if (items[i].sellIn < 0) {
-        decrementQuality(i);
-    }
-}
-
-void GildedRose::decrementQuality(int i) {
-    if (items[i].quality > 0) {
-        items[i].quality--;
     }
 }
 

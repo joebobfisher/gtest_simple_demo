@@ -15,11 +15,14 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
+include_directories(src/Item)
+
 add_executable(
   gilded_rose_test
   test/gildedRoseTest.cc
-  src/GildedRose.cc
-)
+  src/GildedRose/GildedRose.cc
+  src/Item/Item.cc
+  src/Item/Item.h)
 target_link_libraries(
   gilded_rose_test
   gtest_main
